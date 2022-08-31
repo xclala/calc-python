@@ -1,13 +1,17 @@
 try:
     from tkinter import *
 
-    class App:
-        def __init__(self, master):
-            self.master = master
+    class App(Tk):
+        def __init__(self):
+            self.master = Tk()
+            self.master.title("计算器")
+            self.master.resizable(0, 0)
             self.initWidgets()
             self.expr = None
+            self.master.mainloop()
 
         def initWidgets(self):
+            Label(text='双击“=”清屏').pack(side=TOP)
             self.show = Label(relief=SUNKEN,
                               font=('Courier New', 29),
                               width=19,
@@ -20,7 +24,7 @@ try:
                      '-', '*', '/', '.', '=')
             for i in range(len(names)):
                 b = Button(p, text=names[i], font=(
-                    'Verdana', 20), width=6, fg='white', bg='#010101')
+                    'Verdana', 20), width=6, fg='black', bg='white')
                 b.grid(row=i // 4, column=i % 4)
                 b.bind('<Button-1>', self.click)
                 if b['text'] == '=':
@@ -45,12 +49,6 @@ try:
         def clean(self, event):
             self.expr = None
             self.show['text'] = ''
-
-    root = Tk()
-    root.title("计算器")
-    root.attributes('-transparentcolor', '#010101')
-    Label(text='双击“=”清屏').pack(side=TOP)
-    App(root)
-    root.mainloop() 
+    App()
 except Exception as e:
     print(e)
